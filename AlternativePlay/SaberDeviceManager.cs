@@ -41,17 +41,17 @@ namespace AlternativePlay
                 (trackerPose = TrackedDeviceManager.instance.GetPoseFromSerial(configData.Serial)) != null)
             {
                 // Return adjusted position from the tracker
-                Pose adjustedPose = this.AdjustForPlayerOrigin(trackerPose.Value);
+                Pose adjustedPose = AdjustForPlayerOrigin(trackerPose.Value);
                 return Utilities.CalculatePoseFromTrackerData(configData, adjustedPose);
             }
             else
             {
-                if (!calibrated || !this.leftController.isValid) return new Pose();
+                if (!calibrated || !leftController.isValid) return new Pose();
 
                 // Return adjusted position from the saber
-                Pose controllerPose = TrackedDeviceManager.GetDevicePose(this.leftController) ?? new Pose();
-                Pose adjustedControllerPose = this.AdjustForPlayerOrigin(controllerPose);
-                return TrackedDeviceManager.GetTrackedObjectPose(this.savedLeftSaber, this.savedLeftController, adjustedControllerPose);
+                Pose controllerPose = TrackedDeviceManager.GetDevicePose(leftController) ?? new Pose();
+                Pose adjustedControllerPose = AdjustForPlayerOrigin(controllerPose);
+                return TrackedDeviceManager.GetTrackedObjectPose(savedLeftSaber, savedLeftController, adjustedControllerPose);
             }
         }
 
@@ -67,17 +67,17 @@ namespace AlternativePlay
                 (trackerPose = TrackedDeviceManager.instance.GetPoseFromSerial(configData.Serial)) != null)
             {
                 // Return adjusted position from the tracker
-                Pose adjustedPose = this.AdjustForPlayerOrigin(trackerPose.Value);
+                Pose adjustedPose = AdjustForPlayerOrigin(trackerPose.Value);
                 return Utilities.CalculatePoseFromTrackerData(configData, adjustedPose);
             }
             else
             {
-                if (!calibrated || !this.rightController.isValid) return new Pose();
+                if (!calibrated || !rightController.isValid) return new Pose();
 
                 // Return adjusted position from the saber
-                Pose controllerPose = TrackedDeviceManager.GetDevicePose(this.rightController) ?? new Pose();
-                Pose adjustedControllerPose = this.AdjustForPlayerOrigin(controllerPose);
-                return TrackedDeviceManager.GetTrackedObjectPose(this.savedRightSaber, this.savedRightController, adjustedControllerPose);
+                Pose controllerPose = TrackedDeviceManager.GetDevicePose(rightController) ?? new Pose();
+                Pose adjustedControllerPose = AdjustForPlayerOrigin(controllerPose);
+                return TrackedDeviceManager.GetTrackedObjectPose(savedRightSaber, savedRightController, adjustedControllerPose);
             }
         }
 
@@ -86,10 +86,10 @@ namespace AlternativePlay
         /// </summary>
         public void SetLeftSaberPose(Pose pose)
         {
-            if (this.saberManager == null) return;
+            if (saberManager == null) return;
 
-            this.saberManager.leftSaber.transform.position = pose.position;
-            this.saberManager.leftSaber.transform.rotation = pose.rotation;
+            saberManager.leftSaber.transform.position = pose.position;
+            saberManager.leftSaber.transform.rotation = pose.rotation;
 
             if (MultiplayerLocalActivePlayerGameplayManagerPatch.multiplayerSaberManager)
                 MultiplayerSyncStateManagerPatch.SetMultiplayerLeftSaberPose(pose);
@@ -100,10 +100,10 @@ namespace AlternativePlay
         /// </summary>
         public void SetRightSaberPose(Pose pose)
         {
-            if (this.saberManager == null) return;
+            if (saberManager == null) return;
 
-            this.saberManager.rightSaber.transform.position = pose.position;
-            this.saberManager.rightSaber.transform.rotation = pose.rotation;
+            saberManager.rightSaber.transform.position = pose.position;
+            saberManager.rightSaber.transform.rotation = pose.rotation;
 
             if (MultiplayerLocalActivePlayerGameplayManagerPatch.multiplayerSaberManager)
                 MultiplayerSyncStateManagerPatch.SetMultiplayerRightSaberPose(pose);
@@ -115,8 +115,8 @@ namespace AlternativePlay
         /// </summary>
         public void SetLeftSaber(TrackerConfigData trackerData)
         {
-            Pose pose = this.GetLeftSaberPose(trackerData);
-            this.SetLeftSaberPose(pose);
+            Pose pose = GetLeftSaberPose(trackerData);
+            SetLeftSaberPose(pose);
         }
 
         /// <summary>
@@ -125,8 +125,8 @@ namespace AlternativePlay
         /// </summary>
         public void SetRightSaber(TrackerConfigData trackerData)
         {
-            Pose pose = this.GetRightSaberPose(trackerData);
-            this.SetRightSaberPose(pose);
+            Pose pose = GetRightSaberPose(trackerData);
+            SetRightSaberPose(pose);
         }
 
         /// <summary>
@@ -135,7 +135,7 @@ namespace AlternativePlay
         /// </summary>
         public void DisableLeftSaberMesh()
         {
-            var saberRenderers = this.saberManager.leftSaber.gameObject.GetComponentsInChildren<Renderer>();
+            var saberRenderers = saberManager.leftSaber.gameObject.GetComponentsInChildren<Renderer>();
             foreach (var r in saberRenderers) { r.enabled = false; }
         }
 
@@ -145,21 +145,21 @@ namespace AlternativePlay
         /// </summary>
         public void DisableRightSaberMesh()
         {
-            var saberRenderers = this.saberManager.rightSaber.gameObject.GetComponentsInChildren<Renderer>();
+            var saberRenderers = saberManager.rightSaber.gameObject.GetComponentsInChildren<Renderer>();
             foreach (var r in saberRenderers) { r.enabled = false; }
         }
 
         private void Awake()
         {
-            this.saberManager = MultiplayerLocalActivePlayerGameplayManagerPatch.multiplayerSaberManager ?? FindObjectOfType<SaberManager>();
-            this.playerOrigin = GameObject.Find("LocalPlayerGameCore/Origin");
-            this.leftController = InputDevices.GetDeviceAtXRNode(XRNode.LeftHand);
-            this.rightController = InputDevices.GetDeviceAtXRNode(XRNode.RightHand);
+            saberManager = MultiplayerLocalActivePlayerGameplayManagerPatch.multiplayerSaberManager ?? FindObjectOfType<SaberManager>();
+            playerOrigin = GameObject.Find("LocalPlayerGameCore/Origin");
+            leftController = InputDevices.GetDeviceAtXRNode(XRNode.LeftHand);
+            rightController = InputDevices.GetDeviceAtXRNode(XRNode.RightHand);
         }
 
         private void Update()
         {
-            if (!this.calibrated) this.CalibrateSaberPositions();
+            if (!calibrated) CalibrateSaberPositions();
         }
 
         /// <summary>
@@ -170,18 +170,18 @@ namespace AlternativePlay
             calibrated = true;
 
             // Save current controller position
-            this.savedLeftController = TrackedDeviceManager.GetDevicePose(this.leftController) ?? new Pose();
-            this.savedLeftController = this.AdjustForPlayerOrigin(this.savedLeftController);
+            savedLeftController = TrackedDeviceManager.GetDevicePose(leftController) ?? new Pose();
+            savedLeftController = AdjustForPlayerOrigin(savedLeftController);
 
-            this.savedRightController = TrackedDeviceManager.GetDevicePose(this.rightController) ?? new Pose();
-            this.savedRightController = this.AdjustForPlayerOrigin(this.savedRightController);
+            savedRightController = TrackedDeviceManager.GetDevicePose(rightController) ?? new Pose();
+            savedRightController = AdjustForPlayerOrigin(savedRightController);
 
             // Save current game saber positions
-            this.savedLeftSaber.position = saberManager.leftSaber.transform.position;
-            this.savedLeftSaber.rotation = saberManager.leftSaber.transform.rotation;
+            savedLeftSaber.position = saberManager.leftSaber.transform.position;
+            savedLeftSaber.rotation = saberManager.leftSaber.transform.rotation;
 
-            this.savedRightSaber.position = saberManager.rightSaber.transform.position;
-            this.savedRightSaber.rotation = saberManager.rightSaber.transform.rotation;
+            savedRightSaber.position = saberManager.rightSaber.transform.position;
+            savedRightSaber.rotation = saberManager.rightSaber.transform.rotation;
         }
 
         /// <summary>

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace AlternativePlay
 {
@@ -198,7 +199,7 @@ namespace AlternativePlay
             var result = new List<GameObject>();
             for (int i = 0; i < count; i++)
             {
-                var link = GameObject.Instantiate(BehaviorCatalog.instance.AssetLoaderBehavior.LinkPrefab);
+                var link = Object.Instantiate(BehaviorCatalog.instance.AssetLoaderBehavior.LinkPrefab);
                 result.Add(link);
             }
 

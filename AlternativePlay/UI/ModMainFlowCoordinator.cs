@@ -23,100 +23,100 @@ namespace AlternativePlay.UI
 
         public void ShowBeatSaber()
         {
-            this.IsBusy = true;
-            this.SetLeftScreenViewController(this.beatSaberSettingsView, ViewController.AnimationType.In);
-            this.IsBusy = false;
+            IsBusy = true;
+            SetLeftScreenViewController(beatSaberSettingsView, ViewController.AnimationType.In);
+            IsBusy = false;
         }
 
         public void ShowDarthMaul()
         {
-            this.IsBusy = true;
-            this.SetLeftScreenViewController(this.darthMaulSettingsView, ViewController.AnimationType.In);
-            this.IsBusy = false;
+            IsBusy = true;
+            SetLeftScreenViewController(darthMaulSettingsView, ViewController.AnimationType.In);
+            IsBusy = false;
         }
 
         public void ShowBeatSpear()
         {
-            this.IsBusy = true;
-            this.SetLeftScreenViewController(this.beatSpearSettingsView, ViewController.AnimationType.In);
-            this.IsBusy = false;
+            IsBusy = true;
+            SetLeftScreenViewController(beatSpearSettingsView, ViewController.AnimationType.In);
+            IsBusy = false;
         }
 
         public void ShowNunchaku()
         {
-            this.IsBusy = true;
-            this.SetLeftScreenViewController(this.nunchakuView, ViewController.AnimationType.In);
-            this.IsBusy = false;
+            IsBusy = true;
+            SetLeftScreenViewController(nunchakuView, ViewController.AnimationType.In);
+            IsBusy = false;
         }
 
         public void ShowBeatFlail()
         {
-            this.IsBusy = true;
-            this.SetLeftScreenViewController(this.beatFlailView, ViewController.AnimationType.In);
-            this.IsBusy = false;
+            IsBusy = true;
+            SetLeftScreenViewController(beatFlailView, ViewController.AnimationType.In);
+            IsBusy = false;
         }
 
         public void ShowTrackerSelect(TrackerConfigData trackerConfigData)
         {
-            this.IsBusy = true;
-            this.SetTitle("Select Tracker");
+            IsBusy = true;
+            SetTitle("Select Tracker");
 
-            this.trackerSelectView.SetSelectingTracker(trackerConfigData);
-            this.trackerPoseView.SetSelectingTracker(trackerConfigData);
+            trackerSelectView.SetSelectingTracker(trackerConfigData);
+            trackerPoseView.SetSelectingTracker(trackerConfigData);
 
-            this.ReplaceTopViewController(this.trackerSelectView);
-            this.SetLeftScreenViewController(null, ViewController.AnimationType.In);
-            this.SetRightScreenViewController(this.trackerPoseView, ViewController.AnimationType.In);
+            ReplaceTopViewController(trackerSelectView);
+            SetLeftScreenViewController(null, ViewController.AnimationType.In);
+            SetRightScreenViewController(trackerPoseView, ViewController.AnimationType.In);
 
-            this.IsBusy = false;
+            IsBusy = false;
 
         }
 
         public void DismissTrackerSelect()
         {
-            this.IsBusy = true;
-            this.SetTitle(titleString);
+            IsBusy = true;
+            SetTitle(titleString);
 
-            this.ReplaceTopViewController(this.alternativePlayView);
+            ReplaceTopViewController(alternativePlayView);
             var viewToDisplay = DecideLeftMainView();
-            this.SetLeftScreenViewController(viewToDisplay, ViewController.AnimationType.Out);
-            this.SetRightScreenViewController(this.gameModifiersView, ViewController.AnimationType.Out);
-            this.IsBusy = false;
+            SetLeftScreenViewController(viewToDisplay, ViewController.AnimationType.Out);
+            SetRightScreenViewController(gameModifiersView, ViewController.AnimationType.Out);
+            IsBusy = false;
         }
 
         private void Awake()
         {
-            this.alternativePlayView = BeatSaberUI.CreateViewController<AlternativePlayView>();
-            this.alternativePlayView.MainFlowCoordinator = this;
-            this.gameModifiersView = BeatSaberUI.CreateViewController<GameModifiersView>();
+            alternativePlayView = BeatSaberUI.CreateViewController<AlternativePlayView>();
+            alternativePlayView.MainFlowCoordinator = this;
+            gameModifiersView = BeatSaberUI.CreateViewController<GameModifiersView>();
 
-            this.beatSaberSettingsView = BeatSaberUI.CreateViewController<BeatSaberView>();
-            this.beatSaberSettingsView.SetMainFlowCoordinator(this);
-            this.darthMaulSettingsView = BeatSaberUI.CreateViewController<DarthMaulView>();
-            this.darthMaulSettingsView.SetMainFlowCoordinator(this);
-            this.beatSpearSettingsView = BeatSaberUI.CreateViewController<BeatSpearView>();
-            this.beatSpearSettingsView.SetMainFlowCoordinator(this);
-            this.nunchakuView = BeatSaberUI.CreateViewController<NunchakuView>();
-            this.nunchakuView.SetMainFlowCoordinator(this);
-            this.beatFlailView = BeatSaberUI.CreateViewController<BeatFlailView>();
-            this.beatFlailView.SetMainFlowCoordinator(this);
+            beatSaberSettingsView = BeatSaberUI.CreateViewController<BeatSaberView>();
+            beatSaberSettingsView.SetMainFlowCoordinator(this);
+            darthMaulSettingsView = BeatSaberUI.CreateViewController<DarthMaulView>();
+            darthMaulSettingsView.SetMainFlowCoordinator(this);
+            beatSpearSettingsView = BeatSaberUI.CreateViewController<BeatSpearView>();
+            beatSpearSettingsView.SetMainFlowCoordinator(this);
+            nunchakuView = BeatSaberUI.CreateViewController<NunchakuView>();
+            nunchakuView.SetMainFlowCoordinator(this);
+            beatFlailView = BeatSaberUI.CreateViewController<BeatFlailView>();
+            beatFlailView.SetMainFlowCoordinator(this);
 
-            this.trackerSelectView = BeatSaberUI.CreateViewController<TrackerSelectView>();
-            this.trackerSelectView.SetMainFlowCoordinator(this);
-            this.trackerPoseView = BeatSaberUI.CreateViewController<TrackerPoseView>();
+            trackerSelectView = BeatSaberUI.CreateViewController<TrackerSelectView>();
+            trackerSelectView.SetMainFlowCoordinator(this);
+            trackerPoseView = BeatSaberUI.CreateViewController<TrackerPoseView>();
         }
 
         protected override void DidActivate(bool firstActivation, bool addedToHierarchy, bool screenSystemEnabling)
         {
-            this.SetTitle(titleString);
-            this.showBackButton = true;
+            SetTitle(titleString);
+            showBackButton = true;
 
             var viewToDisplay = DecideLeftMainView();
 
-            this.IsBusy = true;
-            this.trackerSelectView.SetSelectingTracker(new TrackerConfigData());
-            ProvideInitialViewControllers(this.alternativePlayView, viewToDisplay, this.gameModifiersView);
-            this.IsBusy = false;
+            IsBusy = true;
+            trackerSelectView.SetSelectingTracker(new TrackerConfigData());
+            ProvideInitialViewControllers(alternativePlayView, viewToDisplay, gameModifiersView);
+            IsBusy = false;
         }
 
         private ViewController DecideLeftMainView()
@@ -126,24 +126,24 @@ namespace AlternativePlay.UI
             switch (Configuration.instance.ConfigurationData.PlayMode)
             {
                 case PlayMode.DarthMaul:
-                    viewToDisplay = this.darthMaulSettingsView;
+                    viewToDisplay = darthMaulSettingsView;
                     break;
 
                 case PlayMode.BeatSpear:
-                    viewToDisplay = this.beatSpearSettingsView;
+                    viewToDisplay = beatSpearSettingsView;
                     break;
 
                 case PlayMode.Nunchaku:
-                    viewToDisplay = this.nunchakuView;
+                    viewToDisplay = nunchakuView;
                     break;
 
                 case PlayMode.BeatFlail:
-                    viewToDisplay = this.beatFlailView;
+                    viewToDisplay = beatFlailView;
                     break;
 
                 case PlayMode.BeatSaber:
                 default:
-                    viewToDisplay = this.beatSaberSettingsView;
+                    viewToDisplay = beatSaberSettingsView;
                     break;
             }
 
@@ -152,9 +152,9 @@ namespace AlternativePlay.UI
 
         protected override void BackButtonWasPressed(ViewController topViewController)
         {
-            if (this.IsBusy) return;
+            if (IsBusy) return;
 
-            if (topViewController == this.trackerSelectView)
+            if (topViewController == trackerSelectView)
             {
                 DismissTrackerSelect();
                 return;

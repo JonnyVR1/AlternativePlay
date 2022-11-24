@@ -27,8 +27,8 @@ namespace AlternativePlay.UI
         public void SetSelectingTracker(TrackerConfigData trackerConfigData)
         {
             this.trackerConfigData = trackerConfigData;
-            this.originalPosition = this.trackerConfigData.Position;
-            this.originalEuler = this.trackerConfigData.EulerAngles;
+            originalPosition = this.trackerConfigData.Position;
+            originalEuler = this.trackerConfigData.EulerAngles;
         }
 
         protected override void DidActivate(bool firstActivation, bool addedToHierarchy, bool screenSystemEnabling)
@@ -62,84 +62,84 @@ namespace AlternativePlay.UI
         [UIValue("PositionX")]
         private int PositionX
         {
-            get => Convert.ToInt32(this.trackerConfigData.Position.x * positionScaling);
+            get => Convert.ToInt32(trackerConfigData.Position.x * positionScaling);
             set
             {
-                int incrementedValue = PositionIncrement(Convert.ToInt32(this.trackerConfigData.Position.x * positionScaling), value);
-                this.trackerConfigData.Position = new Vector3(incrementedValue / positionScaling, this.trackerConfigData.Position.y, this.trackerConfigData.Position.z);
+                int incrementedValue = PositionIncrement(Convert.ToInt32(trackerConfigData.Position.x * positionScaling), value);
+                trackerConfigData.Position = new Vector3(incrementedValue / positionScaling, trackerConfigData.Position.y, trackerConfigData.Position.z);
 
                 Configuration.instance.SaveConfiguration();
-                this.parserParams.EmitEvent("RefreshPositionXEvent");
+                parserParams.EmitEvent("RefreshPositionXEvent");
             }
         }
 
         [UIValue("PositionY")]
         private int PositionY
         {
-            get => Convert.ToInt32(this.trackerConfigData.Position.y * positionScaling);
+            get => Convert.ToInt32(trackerConfigData.Position.y * positionScaling);
             set
             {
-                int incrementedValue = PositionIncrement(Convert.ToInt32(this.trackerConfigData.Position.y * positionScaling), value);
-                this.trackerConfigData.Position = new Vector3(this.trackerConfigData.Position.x, incrementedValue / positionScaling, this.trackerConfigData.Position.z);
+                int incrementedValue = PositionIncrement(Convert.ToInt32(trackerConfigData.Position.y * positionScaling), value);
+                trackerConfigData.Position = new Vector3(trackerConfigData.Position.x, incrementedValue / positionScaling, trackerConfigData.Position.z);
 
                 Configuration.instance.SaveConfiguration();
-                this.parserParams.EmitEvent("RefreshPositionYEvent");
+                parserParams.EmitEvent("RefreshPositionYEvent");
             }
         }
 
         [UIValue("PositionZ")]
         private int PositionZ
         {
-            get => Convert.ToInt32(this.trackerConfigData.Position.z * positionScaling);
+            get => Convert.ToInt32(trackerConfigData.Position.z * positionScaling);
             set
             {
-                int incrementedValue = PositionIncrement(Convert.ToInt32(this.trackerConfigData.Position.z * positionScaling), value);
-                this.trackerConfigData.Position = new Vector3(this.trackerConfigData.Position.x, this.trackerConfigData.Position.y, incrementedValue / positionScaling);
+                int incrementedValue = PositionIncrement(Convert.ToInt32(trackerConfigData.Position.z * positionScaling), value);
+                trackerConfigData.Position = new Vector3(trackerConfigData.Position.x, trackerConfigData.Position.y, incrementedValue / positionScaling);
 
                 Configuration.instance.SaveConfiguration();
-                this.parserParams.EmitEvent("RefreshPositionZEvent");
+                parserParams.EmitEvent("RefreshPositionZEvent");
             }
         }
 
         [UIValue("RotationX")]
         private int RotationX
         {
-            get => Convert.ToInt32(this.trackerConfigData.EulerAngles.x * rotationScaling);
+            get => Convert.ToInt32(trackerConfigData.EulerAngles.x * rotationScaling);
             set
             {
-                int incrementedValue = RotationIncrement(Convert.ToInt32(this.trackerConfigData.EulerAngles.x * rotationScaling), value);
-                this.trackerConfigData.EulerAngles = new Vector3(incrementedValue / rotationScaling, this.trackerConfigData.EulerAngles.y, this.trackerConfigData.EulerAngles.z);
+                int incrementedValue = RotationIncrement(Convert.ToInt32(trackerConfigData.EulerAngles.x * rotationScaling), value);
+                trackerConfigData.EulerAngles = new Vector3(incrementedValue / rotationScaling, trackerConfigData.EulerAngles.y, trackerConfigData.EulerAngles.z);
 
                 Configuration.instance.SaveConfiguration();
-                this.parserParams.EmitEvent("RefreshRotationXEvent");
+                parserParams.EmitEvent("RefreshRotationXEvent");
             }
         }
 
         [UIValue("RotationY")]
         private int RotationY
         {
-            get => Convert.ToInt32(this.trackerConfigData.EulerAngles.y * rotationScaling);
+            get => Convert.ToInt32(trackerConfigData.EulerAngles.y * rotationScaling);
             set
             {
-                int incrementedValue = RotationIncrement(Convert.ToInt32(this.trackerConfigData.EulerAngles.y * rotationScaling), value);
-                this.trackerConfigData.EulerAngles = new Vector3(this.trackerConfigData.EulerAngles.x, incrementedValue / rotationScaling, this.trackerConfigData.EulerAngles.z);
+                int incrementedValue = RotationIncrement(Convert.ToInt32(trackerConfigData.EulerAngles.y * rotationScaling), value);
+                trackerConfigData.EulerAngles = new Vector3(trackerConfigData.EulerAngles.x, incrementedValue / rotationScaling, trackerConfigData.EulerAngles.z);
 
                 Configuration.instance.SaveConfiguration();
-                this.parserParams.EmitEvent("RefreshRotationYEvent");
+                parserParams.EmitEvent("RefreshRotationYEvent");
             }
         }
 
         [UIValue("RotationZ")]
         private int RotationZ
         {
-            get => Convert.ToInt32(this.trackerConfigData.EulerAngles.z * rotationScaling);
+            get => Convert.ToInt32(trackerConfigData.EulerAngles.z * rotationScaling);
             set
             {
-                int incrementedValue = RotationIncrement(Convert.ToInt32(this.trackerConfigData.EulerAngles.z * rotationScaling), value);
-                this.trackerConfigData.EulerAngles = new Vector3(this.trackerConfigData.EulerAngles.x, this.trackerConfigData.EulerAngles.y, incrementedValue / rotationScaling);
+                int incrementedValue = RotationIncrement(Convert.ToInt32(trackerConfigData.EulerAngles.z * rotationScaling), value);
+                trackerConfigData.EulerAngles = new Vector3(trackerConfigData.EulerAngles.x, trackerConfigData.EulerAngles.y, incrementedValue / rotationScaling);
 
                 Configuration.instance.SaveConfiguration();
-                this.parserParams.EmitEvent("RefreshRotationZEvent");
+                parserParams.EmitEvent("RefreshRotationZEvent");
             }
         }
 
@@ -159,8 +159,8 @@ namespace AlternativePlay.UI
         [UIAction("OnReset")]
         private void OnSelected()
         {
-            this.trackerConfigData.Position = Vector3.zero;
-            this.trackerConfigData.EulerAngles = Vector3.zero;
+            trackerConfigData.Position = Vector3.zero;
+            trackerConfigData.EulerAngles = Vector3.zero;
             Configuration.instance.SaveConfiguration();
             RefreshAllValues();
         }
@@ -169,20 +169,20 @@ namespace AlternativePlay.UI
         [UIAction("OnRevert")]
         private void OnRevert()
         {
-            this.trackerConfigData.Position = this.originalPosition;
-            this.trackerConfigData.EulerAngles = this.originalEuler;
+            trackerConfigData.Position = originalPosition;
+            trackerConfigData.EulerAngles = originalEuler;
             Configuration.instance.SaveConfiguration();
             RefreshAllValues();
         }
 
         private void RefreshAllValues()
         {
-            this.parserParams.EmitEvent("RefreshPositionXEvent");
-            this.parserParams.EmitEvent("RefreshPositionYEvent");
-            this.parserParams.EmitEvent("RefreshPositionZEvent");
-            this.parserParams.EmitEvent("RefreshRotationXEvent");
-            this.parserParams.EmitEvent("RefreshRotationYEvent");
-            this.parserParams.EmitEvent("RefreshRotationZEvent");
+            parserParams.EmitEvent("RefreshPositionXEvent");
+            parserParams.EmitEvent("RefreshPositionYEvent");
+            parserParams.EmitEvent("RefreshPositionZEvent");
+            parserParams.EmitEvent("RefreshRotationXEvent");
+            parserParams.EmitEvent("RefreshRotationYEvent");
+            parserParams.EmitEvent("RefreshRotationZEvent");
         }
 
         private int PositionIncrement(int currentValue, int value)

@@ -45,7 +45,7 @@ namespace AlternativePlay
                 Utilities.CheckAndDisableForTrackerTransforms(config.RightFlailTracker);
             }
 
-            this.StartCoroutine(this.DisableSaberMeshes());
+            StartCoroutine(DisableSaberMeshes());
         }
 
         private void Awake()
@@ -55,12 +55,12 @@ namespace AlternativePlay
 
             // Create the GameObjects used for physics calculations
             var config = Configuration.instance.ConfigurationData;
-            this.leftPhysicsFlail = this.CreatePhysicsChain("Left", config.LeftFlailLength / 100.0f);
-            this.rightPhysicsFlail = this.CreatePhysicsChain("Right", config.RightFlailLength / 100.0f);
-            this.leftLinkMeshes = Utilities.CreateLinkMeshes(this.leftPhysicsFlail.Count, config.LeftFlailLength / 100.0f);
-            this.leftHandleMesh = GameObject.Instantiate(BehaviorCatalog.instance.AssetLoaderBehavior.FlailHandlePrefab);
-            this.rightLinkMeshes = Utilities.CreateLinkMeshes(this.rightPhysicsFlail.Count, config.RightFlailLength / 100.0f);
-            this.rightHandleMesh = GameObject.Instantiate(BehaviorCatalog.instance.AssetLoaderBehavior.FlailHandlePrefab);
+            leftPhysicsFlail = CreatePhysicsChain("Left", config.LeftFlailLength / 100.0f);
+            rightPhysicsFlail = CreatePhysicsChain("Right", config.RightFlailLength / 100.0f);
+            leftLinkMeshes = Utilities.CreateLinkMeshes(leftPhysicsFlail.Count, config.LeftFlailLength / 100.0f);
+            leftHandleMesh = Instantiate(BehaviorCatalog.instance.AssetLoaderBehavior.FlailHandlePrefab);
+            rightLinkMeshes = Utilities.CreateLinkMeshes(rightPhysicsFlail.Count, config.RightFlailLength / 100.0f);
+            rightHandleMesh = Instantiate(BehaviorCatalog.instance.AssetLoaderBehavior.FlailHandlePrefab);
         }
 
         private void FixedUpdate()
@@ -76,14 +76,14 @@ namespace AlternativePlay
                 default:
                 case BeatFlailMode.Flail:
                     // Apply gravity to the left handle
-                    foreach (var link in this.leftPhysicsFlail.Skip(1))
+                    foreach (var link in leftPhysicsFlail.Skip(1))
                     {
                         var rigidBody = link.GetComponent<Rigidbody>();
                         rigidBody.AddForce(new Vector3(0, gravity, 0) * rigidBody.mass);
                     }
 
                     // Apply motion force from the left controller
-                    var leftFirstLink = this.leftPhysicsFlail.First();
+                    var leftFirstLink = leftPhysicsFlail.First();
                     Pose leftSaberPose = BehaviorCatalog.instance.SaberDeviceManager.GetLeftSaberPose(config.LeftFlailTracker);
                     leftFirstLink.transform.position = leftSaberPose.position * 10.0f;
                     leftFirstLink.transform.rotation = leftSaberPose.rotation * Quaternion.Euler(0.0f, 90.0f, 0.0f);
@@ -100,14 +100,14 @@ namespace AlternativePlay
                 default:
                 case BeatFlailMode.Flail:
                     // Apply gravity to the right handle
-                    foreach (var link in this.rightPhysicsFlail.Skip(1))
+                    foreach (var link in rightPhysicsFlail.Skip(1))
                     {
                         var rigidBody = link.GetComponent<Rigidbody>();
                         rigidBody.AddForce(new Vector3(0, gravity, 0) * rigidBody.mass);
                     }
 
                     // Apply motion force from the right controller
-                    var rightFirstLink = this.rightPhysicsFlail.First();
+                    var rightFirstLink = rightPhysicsFlail.First();
                     Pose rightSaberPose = BehaviorCatalog.instance.SaberDeviceManager.GetRightSaberPose(config.RightFlailTracker);
                     rightFirstLink.transform.position = rightSaberPose.position * 10.0f;
                     rightFirstLink.transform.rotation = rightSaberPose.rotation * Quaternion.Euler(0.0f, 90.0f, 0.0f);
@@ -131,19 +131,19 @@ namespace AlternativePlay
                 default:
                 case BeatFlailMode.Flail:
                     // Move saber to the last link
-                    var lastLeftLink = this.leftPhysicsFlail.Last();
+                    var lastLeftLink = leftPhysicsFlail.Last();
                     Pose leftLastLinkPose = new Pose(lastLeftLink.transform.position / 10.0f, lastLeftLink.transform.rotation * Quaternion.Euler(0.0f, -90.0f, 180.0f));
                     BehaviorCatalog.instance.SaberDeviceManager.SetLeftSaberPose(leftLastLinkPose);
 
                     // Move all links into place
-                    Utilities.MoveLinkMeshes(this.leftLinkMeshes, this.leftPhysicsFlail, (float)config.LeftFlailLength / 100f);
+                    Utilities.MoveLinkMeshes(leftLinkMeshes, leftPhysicsFlail, (float)config.LeftFlailLength / 100f);
 
                     // Move handle based on the original saber position
                     Pose leftSaberPose = BehaviorCatalog.instance.SaberDeviceManager.GetLeftSaberPose(config.LeftFlailTracker);
                     float oneChainDistance = config.LeftFlailLength / 100.0f / (leftPhysicsFlail.Count - 1);
                     Vector3 moveHandleUp = leftSaberPose.rotation * new Vector3(0.0f, 0.0f, oneChainDistance); // Move handle forward one chain length
-                    this.leftHandleMesh.transform.position = leftSaberPose.position + moveHandleUp;
-                    this.leftHandleMesh.transform.rotation = leftSaberPose.rotation;
+                    leftHandleMesh.transform.position = leftSaberPose.position + moveHandleUp;
+                    leftHandleMesh.transform.rotation = leftSaberPose.rotation;
                     break;
 
                 case BeatFlailMode.Sword:
@@ -161,19 +161,19 @@ namespace AlternativePlay
                 default:
                 case BeatFlailMode.Flail:
                     // Move saber to the last link
-                    var lastRightLink = this.rightPhysicsFlail.Last();
+                    var lastRightLink = rightPhysicsFlail.Last();
                     Pose rightLastLinkPose = new Pose(lastRightLink.transform.position / 10.0f, lastRightLink.transform.rotation * Quaternion.Euler(0.0f, -90.0f, 180.0f));
                     BehaviorCatalog.instance.SaberDeviceManager.SetRightSaberPose(rightLastLinkPose);
 
                     // Move all links into place
-                    Utilities.MoveLinkMeshes(this.rightLinkMeshes, this.rightPhysicsFlail, config.RightFlailLength / 100.0f);
+                    Utilities.MoveLinkMeshes(rightLinkMeshes, rightPhysicsFlail, config.RightFlailLength / 100.0f);
 
                     // Move handle based on the original saber position
                     Pose rightSaberPose = BehaviorCatalog.instance.SaberDeviceManager.GetRightSaberPose(config.RightFlailTracker);
                     float oneChainDistance = config.RightFlailLength / 100.0f / (rightPhysicsFlail.Count - 1);
                     Vector3 moveHandleUp = rightSaberPose.rotation * new Vector3(0.0f, 0.0f, oneChainDistance); // Move handle forward one chain length
-                    this.rightHandleMesh.transform.position = rightSaberPose.position + moveHandleUp;
-                    this.rightHandleMesh.transform.rotation = rightSaberPose.rotation;
+                    rightHandleMesh.transform.position = rightSaberPose.position + moveHandleUp;
+                    rightHandleMesh.transform.rotation = rightSaberPose.rotation;
                     break;
 
                 case BeatFlailMode.Sword:
@@ -190,23 +190,23 @@ namespace AlternativePlay
         private void OnDestroy()
         {
             // Destroy all flail game objects
-            if (this.leftPhysicsFlail != null) this.leftPhysicsFlail.ForEach(o => GameObject.Destroy(o));
-            this.leftPhysicsFlail = null;
+            if (leftPhysicsFlail != null) leftPhysicsFlail.ForEach(o => Destroy(o));
+            leftPhysicsFlail = null;
 
-            if (this.rightPhysicsFlail != null) this.rightPhysicsFlail.ForEach(o => GameObject.Destroy(o));
-            this.rightPhysicsFlail = null;
+            if (rightPhysicsFlail != null) rightPhysicsFlail.ForEach(o => Destroy(o));
+            rightPhysicsFlail = null;
 
-            if (this.leftLinkMeshes != null) this.leftLinkMeshes.ForEach(o => GameObject.Destroy(o));
-            this.leftLinkMeshes = null;
+            if (leftLinkMeshes != null) leftLinkMeshes.ForEach(o => Destroy(o));
+            leftLinkMeshes = null;
 
-            if (this.rightLinkMeshes != null) this.rightLinkMeshes.ForEach(o => GameObject.Destroy(o));
-            this.rightLinkMeshes = null;
+            if (rightLinkMeshes != null) rightLinkMeshes.ForEach(o => Destroy(o));
+            rightLinkMeshes = null;
 
-            if (this.leftHandleMesh != null) GameObject.Destroy(this.leftHandleMesh);
-            this.leftHandleMesh = null;
+            if (leftHandleMesh != null) Destroy(leftHandleMesh);
+            leftHandleMesh = null;
 
-            if (this.rightHandleMesh != null) GameObject.Destroy(this.rightHandleMesh);
-            this.rightHandleMesh = null;
+            if (rightHandleMesh != null) Destroy(rightHandleMesh);
+            rightHandleMesh = null;
         }
 
         /// <summary>

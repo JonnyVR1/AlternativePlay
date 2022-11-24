@@ -25,17 +25,17 @@ namespace AlternativePlay
         {
             RemoveAllInstances();
 
-            this.trackerInstances = TrackedDeviceManager.instance.TrackedDevices.Select((t) => new TrackerInstance
+            trackerInstances = TrackedDeviceManager.instance.TrackedDevices.Select((t) => new TrackerInstance
             {
-                Instance = GameObject.Instantiate(BehaviorCatalog.instance.AssetLoaderBehavior.TrackerPrefab),
+                Instance = Instantiate(BehaviorCatalog.instance.AssetLoaderBehavior.TrackerPrefab),
                 InputDevice = t,
                 Serial = t.serialNumber,
             }).ToList();
 
-            this.trackerInstances.ForEach(t => t.Instance.SetActive(true));
-            this.saberInstance = GameObject.Instantiate(BehaviorCatalog.instance.AssetLoaderBehavior.SaberPrefab);
-            this.showTrackers = true;
-            this.enabled = true;
+            trackerInstances.ForEach(t => t.Instance.SetActive(true));
+            saberInstance = Instantiate(BehaviorCatalog.instance.AssetLoaderBehavior.SaberPrefab);
+            showTrackers = true;
+            enabled = true;
         }
 
         /// <summary>
@@ -43,10 +43,10 @@ namespace AlternativePlay
         /// </summary>
         public void DisableShowTrackers()
         {
-            this.showTrackers = false;
+            showTrackers = false;
             RemoveAllInstances();
 
-            this.enabled = false;
+            enabled = false;
         }
 
         /// <summary>
@@ -57,34 +57,34 @@ namespace AlternativePlay
         /// <param name="serial">The serial of the tracker to set as selected</param>
         public void SetSelectedSerial(TrackerConfigData tracker)
         {
-            this.selectedTracker = tracker;
+            selectedTracker = tracker;
         }
 
         private void Awake()
         {
-            this.mainSettingsModel = Resources.FindObjectsOfTypeAll<MainSettingsModelSO>().FirstOrDefault();
+            mainSettingsModel = Resources.FindObjectsOfTypeAll<MainSettingsModelSO>().FirstOrDefault();
 
         }
 
         private void Update()
         {
-            if (!this.showTrackers || this.trackerInstances == null || this.trackerInstances.Count == 0) return;
+            if (!showTrackers || trackerInstances == null || trackerInstances.Count == 0) return;
 
-            foreach (var tracker in this.trackerInstances)
+            foreach (var tracker in trackerInstances)
             {
                 // Update all the tracker poses
                 Pose trackerPose = TrackedDeviceManager.GetDevicePose(tracker.InputDevice) ?? new Pose();
-                trackerPose = this.AdjustForRoomRotation(trackerPose);
+                trackerPose = AdjustForRoomRotation(trackerPose);
 
                 tracker.Instance.transform.position = trackerPose.position;
                 tracker.Instance.transform.rotation = trackerPose.rotation;
             }
 
-            var selectedTrackerInstance = this.trackerInstances.Find(t => t.Serial == this.selectedTracker.Serial);
-            if (this.selectedTracker == null || String.IsNullOrWhiteSpace(this.selectedTracker.Serial))
+            var selectedTrackerInstance = trackerInstances.Find(t => t.Serial == selectedTracker.Serial);
+            if (selectedTracker == null || String.IsNullOrWhiteSpace(selectedTracker.Serial))
             {
                 // No selected tracker so disable the saber
-                this.saberInstance.SetActive(false);
+                saberInstance.SetActive(false);
                 return;
             }
 
@@ -93,11 +93,11 @@ namespace AlternativePlay
                 selectedTrackerInstance.Instance.transform.position,
                 selectedTrackerInstance.Instance.transform.rotation);
 
-            Pose pose = Utilities.CalculatePoseFromTrackerData(this.selectedTracker, selectedTrackerPose);
-            this.saberInstance.transform.position = pose.position;
-            this.saberInstance.transform.rotation = pose.rotation;
+            Pose pose = Utilities.CalculatePoseFromTrackerData(selectedTracker, selectedTrackerPose);
+            saberInstance.transform.position = pose.position;
+            saberInstance.transform.rotation = pose.rotation;
 
-            this.saberInstance.SetActive(true);
+            saberInstance.SetActive(true);
         }
 
         /// <summary>
@@ -106,8 +106,8 @@ namespace AlternativePlay
         /// </summary>
         private Pose AdjustForRoomRotation(Pose pose)
         {
-            var roomCenter = this.mainSettingsModel.roomCenter;
-            var roomRotation = Quaternion.Euler(0, this.mainSettingsModel.roomRotation, 0);
+            var roomCenter = mainSettingsModel.roomCenter;
+            var roomRotation = Quaternion.Euler(0, mainSettingsModel.roomRotation, 0);
 
             Pose result = pose;
             result.position = roomRotation * pose.position;
@@ -119,11 +119,11 @@ namespace AlternativePlay
         // Deletes all the instances and all the locally stored tracker instances data
         private void RemoveAllInstances()
         {
-            if (this.trackerInstances != null) this.trackerInstances.ForEach(t => GameObject.Destroy(t.Instance));
-            this.trackerInstances = null;
+            if (trackerInstances != null) trackerInstances.ForEach(t => Destroy(t.Instance));
+            trackerInstances = null;
 
-            if (this.saberInstance != null) GameObject.Destroy(this.saberInstance);
-            this.saberInstance = null;
+            if (saberInstance != null) Destroy(saberInstance);
+            saberInstance = null;
         }
 
 

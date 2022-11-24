@@ -36,11 +36,11 @@ namespace AlternativePlay
 
                 if (leftTriggerPressed || rightTriggerPressed)
                 {
-                    this.Split = !this.Split;
+                    Split = !Split;
                 }
             }
 
-            this.TransformSabers();
+            TransformSabers();
         }
 
         /// <summary>
@@ -48,20 +48,20 @@ namespace AlternativePlay
         /// </summary>
         private void TransformSabers()
         {
-            if (this.Split)
+            if (Split)
             {
-                this.TransformForSplitDarthMaul();
+                TransformForSplitDarthMaul();
                 return;
             }
 
             switch (Configuration.instance.ConfigurationData.DarthMaulControllerCount)
             {
                 case ControllerCountEnum.One:
-                    this.TransformOneControllerMaul();
+                    TransformOneControllerMaul();
                     break;
 
                 case ControllerCountEnum.Two:
-                    this.TransformTwoControllerMaul();
+                    TransformTwoControllerMaul();
                     break;
 
                 default:

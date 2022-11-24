@@ -62,37 +62,37 @@ namespace AlternativePlay.UI
         // Text Displays for the Main View
         private string leftSaberTrackerSerial;
         [UIValue("LeftSaberTrackerSerial")]
-        public string LeftSaberTrackerSerial { get => this.leftSaberTrackerSerial; set { this.leftSaberTrackerSerial = value; this.NotifyPropertyChanged(nameof(this.LeftSaberTrackerSerial)); } }
+        public string LeftSaberTrackerSerial { get => leftSaberTrackerSerial; set { leftSaberTrackerSerial = value; NotifyPropertyChanged(nameof(LeftSaberTrackerSerial)); } }
 
         private string leftSaberTrackerHoverHint;
         [UIValue("LeftSaberTrackerHoverHint")]
-        public string LeftSaberTrackerHoverHint { get => this.leftSaberTrackerHoverHint; set { this.leftSaberTrackerHoverHint = value; this.NotifyPropertyChanged(nameof(this.LeftSaberTrackerHoverHint)); } }
+        public string LeftSaberTrackerHoverHint { get => leftSaberTrackerHoverHint; set { leftSaberTrackerHoverHint = value; NotifyPropertyChanged(nameof(LeftSaberTrackerHoverHint)); } }
 
         private string rightSaberTrackerSerial;
         [UIValue("RightSaberTrackerSerial")]
-        public string RightSaberTrackerSerial { get => this.rightSaberTrackerSerial; set { this.rightSaberTrackerSerial = value; this.NotifyPropertyChanged(nameof(this.RightSaberTrackerSerial)); } }
+        public string RightSaberTrackerSerial { get => rightSaberTrackerSerial; set { rightSaberTrackerSerial = value; NotifyPropertyChanged(nameof(RightSaberTrackerSerial)); } }
 
         private string rightSaberTrackerHoverHint;
         [UIValue("RightSaberTrackerHoverHint")]
-        public string RightSaberTrackerHoverHint { get => this.rightSaberTrackerHoverHint; set { this.rightSaberTrackerHoverHint = value; this.NotifyPropertyChanged(nameof(this.RightSaberTrackerHoverHint)); } }
+        public string RightSaberTrackerHoverHint { get => rightSaberTrackerHoverHint; set { rightSaberTrackerHoverHint = value; NotifyPropertyChanged(nameof(RightSaberTrackerHoverHint)); } }
 
         // Text Display for the Current Tracker in the Tracker Select Modal
         private string currentTrackerText;
         [UIValue("CurrentTrackerText")]
-        public string CurrentTrackerText { get => this.currentTrackerText; set { this.currentTrackerText = value; this.NotifyPropertyChanged(nameof(this.CurrentTrackerText)); } }
+        public string CurrentTrackerText { get => currentTrackerText; set { currentTrackerText = value; NotifyPropertyChanged(nameof(CurrentTrackerText)); } }
 
         // Events
 
         [UIAction("OnShowSelectLeftTracker")]
         private void OnShowSelectLeftTracker()
         {
-            this.mainFlowCoordinator.ShowTrackerSelect(Configuration.instance.ConfigurationData.LeftSaberTracker);
+            mainFlowCoordinator.ShowTrackerSelect(Configuration.instance.ConfigurationData.LeftSaberTracker);
         }
 
         [UIAction("OnShowSelectRightTracker")]
         private void OnShowSelectRightTracker()
         {
-            this.mainFlowCoordinator.ShowTrackerSelect(Configuration.instance.ConfigurationData.RightSaberTracker);
+            mainFlowCoordinator.ShowTrackerSelect(Configuration.instance.ConfigurationData.RightSaberTracker);
         }
 
         [UIAction("OnClearLeftTracker")]
@@ -100,8 +100,8 @@ namespace AlternativePlay.UI
         {
             Configuration.instance.ConfigurationData.LeftSaberTracker = new TrackerConfigData();
             Configuration.instance.SaveConfiguration();
-            this.LeftSaberTrackerSerial = TrackerConfigData.NoTrackerText;
-            this.LeftSaberTrackerHoverHint = TrackerConfigData.NoTrackerHoverHint;
+            LeftSaberTrackerSerial = TrackerConfigData.NoTrackerText;
+            LeftSaberTrackerHoverHint = TrackerConfigData.NoTrackerHoverHint;
         }
 
         [UIAction("OnClearRightTracker")]
@@ -109,8 +109,8 @@ namespace AlternativePlay.UI
         {
             Configuration.instance.ConfigurationData.RightSaberTracker = new TrackerConfigData();
             Configuration.instance.SaveConfiguration();
-            this.RightSaberTrackerSerial = TrackerConfigData.NoTrackerText;
-            this.RightSaberTrackerHoverHint = TrackerConfigData.NoTrackerHoverHint;
+            RightSaberTrackerSerial = TrackerConfigData.NoTrackerText;
+            RightSaberTrackerHoverHint = TrackerConfigData.NoTrackerHoverHint;
         }
 
         /// <summary>
@@ -121,24 +121,24 @@ namespace AlternativePlay.UI
             var config = Configuration.instance.ConfigurationData;
             if (String.IsNullOrWhiteSpace(config.LeftSaberTracker.Serial))
             {
-                this.LeftSaberTrackerSerial = TrackerConfigData.NoTrackerText;
-                this.LeftSaberTrackerHoverHint = TrackerConfigData.NoTrackerHoverHint;
+                LeftSaberTrackerSerial = TrackerConfigData.NoTrackerText;
+                LeftSaberTrackerHoverHint = TrackerConfigData.NoTrackerHoverHint;
             }
             else
             {
-                this.LeftSaberTrackerSerial = config.LeftSaberTracker.Serial;
-                this.LeftSaberTrackerHoverHint = config.LeftSaberTracker.FullName;
+                LeftSaberTrackerSerial = config.LeftSaberTracker.Serial;
+                LeftSaberTrackerHoverHint = config.LeftSaberTracker.FullName;
             }
 
             if (String.IsNullOrWhiteSpace(config.RightSaberTracker.Serial))
             {
-                this.RightSaberTrackerSerial = TrackerConfigData.NoTrackerText;
-                this.RightSaberTrackerHoverHint = TrackerConfigData.NoTrackerHoverHint;
+                RightSaberTrackerSerial = TrackerConfigData.NoTrackerText;
+                RightSaberTrackerHoverHint = TrackerConfigData.NoTrackerHoverHint;
             }
             else
             {
-                this.RightSaberTrackerSerial = config.RightSaberTracker.Serial;
-                this.RightSaberTrackerHoverHint = config.RightSaberTracker.FullName;
+                RightSaberTrackerSerial = config.RightSaberTracker.Serial;
+                RightSaberTrackerHoverHint = config.RightSaberTracker.FullName;
             }
         }
 

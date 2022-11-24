@@ -92,7 +92,7 @@ namespace AlternativePlay.UI
             flailGravity = 3.5f;
             Configuration.instance.ConfigurationData.FlailGravity = 3.5f;
             Configuration.instance.SaveConfiguration();
-            this.parserParams.EmitEvent("RefreshFlailGravity");
+            parserParams.EmitEvent("RefreshFlailGravity");
         }
 
         [UIAction("LengthFormatter")]
@@ -106,36 +106,36 @@ namespace AlternativePlay.UI
         // Text Displays for the Main View
         private string leftFlailTrackerSerial;
         [UIValue("LeftFlailTrackerSerial")]
-        public string LeftFlailTrackerSerial { get => this.leftFlailTrackerSerial; set { this.leftFlailTrackerSerial = value; this.NotifyPropertyChanged(nameof(this.LeftFlailTrackerSerial)); } }
+        public string LeftFlailTrackerSerial { get => leftFlailTrackerSerial; set { leftFlailTrackerSerial = value; NotifyPropertyChanged(nameof(LeftFlailTrackerSerial)); } }
 
         private string leftFlailTrackerHoverHint;
         [UIValue("LeftFlailTrackerHoverHint")]
-        public string LeftFlailTrackerHoverHint { get => this.leftFlailTrackerHoverHint; set { this.leftFlailTrackerHoverHint = value; this.NotifyPropertyChanged(nameof(this.LeftFlailTrackerHoverHint)); } }
+        public string LeftFlailTrackerHoverHint { get => leftFlailTrackerHoverHint; set { leftFlailTrackerHoverHint = value; NotifyPropertyChanged(nameof(LeftFlailTrackerHoverHint)); } }
 
         private string rightFlailTrackerSerial;
         [UIValue("RightFlailTrackerSerial")]
-        public string RightFlailTrackerSerial { get => this.rightFlailTrackerSerial; set { this.rightFlailTrackerSerial = value; this.NotifyPropertyChanged(nameof(this.RightFlailTrackerSerial)); } }
+        public string RightFlailTrackerSerial { get => rightFlailTrackerSerial; set { rightFlailTrackerSerial = value; NotifyPropertyChanged(nameof(RightFlailTrackerSerial)); } }
 
         private string rightFlailTrackerHoverHint;
         [UIValue("RightFlailTrackerHoverHint")]
-        public string RightFlailTrackerHoverHint { get => this.rightFlailTrackerHoverHint; set { this.rightFlailTrackerHoverHint = value; this.NotifyPropertyChanged(nameof(this.RightFlailTrackerHoverHint)); } }
+        public string RightFlailTrackerHoverHint { get => rightFlailTrackerHoverHint; set { rightFlailTrackerHoverHint = value; NotifyPropertyChanged(nameof(RightFlailTrackerHoverHint)); } }
 
         // Text Display for the Current Tracker in the Tracker Select Modal
         private string currentTrackerText;
         [UIValue("CurrentTrackerText")]
-        public string CurrentTrackerText { get => this.currentTrackerText; set { this.currentTrackerText = value; this.NotifyPropertyChanged(nameof(this.CurrentTrackerText)); } }
+        public string CurrentTrackerText { get => currentTrackerText; set { currentTrackerText = value; NotifyPropertyChanged(nameof(CurrentTrackerText)); } }
 
         // Events
         [UIAction("OnShowSelectLeftTracker")]
         private void OnShowSelectLeftTracker()
         {
-            this.mainFlowCoordinator.ShowTrackerSelect(Configuration.instance.ConfigurationData.LeftFlailTracker);
+            mainFlowCoordinator.ShowTrackerSelect(Configuration.instance.ConfigurationData.LeftFlailTracker);
         }
 
         [UIAction("OnShowSelectRightTracker")]
         private void OnShowSelectRightTracker()
         {
-            this.mainFlowCoordinator.ShowTrackerSelect(Configuration.instance.ConfigurationData.RightFlailTracker);
+            mainFlowCoordinator.ShowTrackerSelect(Configuration.instance.ConfigurationData.RightFlailTracker);
         }
 
         [UIAction("OnClearLeftTracker")]
@@ -143,8 +143,8 @@ namespace AlternativePlay.UI
         {
             Configuration.instance.ConfigurationData.LeftFlailTracker = new TrackerConfigData();
             Configuration.instance.SaveConfiguration();
-            this.LeftFlailTrackerSerial = TrackerConfigData.NoTrackerText;
-            this.LeftFlailTrackerHoverHint = TrackerConfigData.NoTrackerHoverHint;
+            LeftFlailTrackerSerial = TrackerConfigData.NoTrackerText;
+            LeftFlailTrackerHoverHint = TrackerConfigData.NoTrackerHoverHint;
         }
 
         [UIAction("OnClearRightTracker")]
@@ -152,8 +152,8 @@ namespace AlternativePlay.UI
         {
             Configuration.instance.ConfigurationData.RightFlailTracker = new TrackerConfigData();
             Configuration.instance.SaveConfiguration();
-            this.RightFlailTrackerSerial = TrackerConfigData.NoTrackerText;
-            this.RightFlailTrackerHoverHint = TrackerConfigData.NoTrackerHoverHint;
+            RightFlailTrackerSerial = TrackerConfigData.NoTrackerText;
+            RightFlailTrackerHoverHint = TrackerConfigData.NoTrackerHoverHint;
         }
 
         /// <summary>
@@ -164,24 +164,24 @@ namespace AlternativePlay.UI
             var config = Configuration.instance.ConfigurationData;
             if (String.IsNullOrWhiteSpace(config.LeftFlailTracker.Serial))
             {
-                this.LeftFlailTrackerSerial = TrackerConfigData.NoTrackerText;
-                this.LeftFlailTrackerHoverHint = TrackerConfigData.NoTrackerHoverHint;
+                LeftFlailTrackerSerial = TrackerConfigData.NoTrackerText;
+                LeftFlailTrackerHoverHint = TrackerConfigData.NoTrackerHoverHint;
             }
             else
             {
-                this.LeftFlailTrackerSerial = config.LeftFlailTracker.Serial;
-                this.LeftFlailTrackerHoverHint = config.LeftFlailTracker.FullName;
+                LeftFlailTrackerSerial = config.LeftFlailTracker.Serial;
+                LeftFlailTrackerHoverHint = config.LeftFlailTracker.FullName;
             }
 
             if (String.IsNullOrWhiteSpace(config.RightFlailTracker.Serial))
             {
-                this.RightFlailTrackerSerial = TrackerConfigData.NoTrackerText;
-                this.RightFlailTrackerHoverHint = TrackerConfigData.NoTrackerHoverHint;
+                RightFlailTrackerSerial = TrackerConfigData.NoTrackerText;
+                RightFlailTrackerHoverHint = TrackerConfigData.NoTrackerHoverHint;
             }
             else
             {
-                this.RightFlailTrackerSerial = config.RightFlailTracker.Serial;
-                this.RightFlailTrackerHoverHint = config.RightFlailTracker.FullName;
+                RightFlailTrackerSerial = config.RightFlailTracker.Serial;
+                RightFlailTrackerHoverHint = config.RightFlailTracker.FullName;
             }
         }
 

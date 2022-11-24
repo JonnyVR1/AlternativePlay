@@ -23,26 +23,26 @@ namespace AlternativePlay.Models
                 string json = JsonConvert.SerializeObject(newConfiguration, Formatting.Indented);
                 File.WriteAllText(configurationFile, json);
 
-                this.ConfigurationData = newConfiguration;
+                ConfigurationData = newConfiguration;
                 return;
             }
 
             string configuration = File.ReadAllText(configurationFile);
-            this.ConfigurationData = JsonConvert.DeserializeObject<ConfigurationData>(configuration);
+            ConfigurationData = JsonConvert.DeserializeObject<ConfigurationData>(configuration);
 
             // Sanitize Configuration Data
-            if (!ConfigurationData.PositionIncrementList.Contains(this.ConfigurationData.PositionIncrement))
+            if (!ConfigurationData.PositionIncrementList.Contains(ConfigurationData.PositionIncrement))
             {
-                this.ConfigurationData.PositionIncrement = ConfigurationData.DefaultPositionIncrement;
+                ConfigurationData.PositionIncrement = ConfigurationData.DefaultPositionIncrement;
             }
-            if (!ConfigurationData.RotationIncrementList.Contains(this.ConfigurationData.RotationIncrement))
+            if (!ConfigurationData.RotationIncrementList.Contains(ConfigurationData.RotationIncrement))
             {
-                this.ConfigurationData.RotationIncrement = ConfigurationData.DefaultRotationIncrement;
+                ConfigurationData.RotationIncrement = ConfigurationData.DefaultRotationIncrement;
             }
 
-            int clamped = Math.Min(Configuration.instance.ConfigurationData.MoveNotesBack, 150);
+            int clamped = Math.Min(instance.ConfigurationData.MoveNotesBack, 150);
             clamped = Math.Max(clamped, 0);
-            Configuration.instance.ConfigurationData.MoveNotesBack = clamped;
+            instance.ConfigurationData.MoveNotesBack = clamped;
         }
 
         /// <summary>
@@ -50,7 +50,7 @@ namespace AlternativePlay.Models
         /// </summary>
         public void SaveConfiguration()
         {
-            string json = JsonConvert.SerializeObject(this.ConfigurationData, Formatting.Indented);
+            string json = JsonConvert.SerializeObject(ConfigurationData, Formatting.Indented);
             File.WriteAllText(configurationFile, json);
         }
     }

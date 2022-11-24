@@ -17,7 +17,7 @@ namespace AlternativePlay
         [Init]
         public AlternativePlay(IPA.Logging.Logger logger)
         {
-            AlternativePlay.Logger = logger;
+            Logger = logger;
         }
 
         [OnStart]
@@ -32,9 +32,9 @@ namespace AlternativePlay
             PersistentSingleton<BehaviorCatalog>.TouchInstance();
             BehaviorCatalog.instance.LoadStartBehaviors();
 
-            BSEvents.gameSceneLoaded += this.OnGameSceneLoaded;
-            BSEvents.menuSceneLoaded += this.OnMenuSceneLoaded;
-            BSEvents.lateMenuSceneLoadedFresh += this.LateMenuSceneLoadedFresh;
+            BSEvents.gameSceneLoaded += OnGameSceneLoaded;
+            BSEvents.menuSceneLoaded += OnMenuSceneLoaded;
+            BSEvents.lateMenuSceneLoadedFresh += LateMenuSceneLoadedFresh;
         }
 
         private void OnMenuSceneLoaded()

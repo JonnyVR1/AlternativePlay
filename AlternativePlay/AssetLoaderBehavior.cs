@@ -13,10 +13,10 @@ namespace AlternativePlay
         private void Awake()
         {
             AssetBundle assetBundle = AssetBundle.LoadFromStream(Assembly.GetExecutingAssembly().GetManifestResourceStream("AlternativePlay.Resources.alternativeplaymodels"));
-            this.TrackerPrefab = assetBundle.LoadAsset<GameObject>("APTracker");
-            this.SaberPrefab = assetBundle.LoadAsset<GameObject>("APSaber");
-            this.FlailHandlePrefab = assetBundle.LoadAsset<GameObject>("APFlailHandle");
-            this.LinkPrefab = assetBundle.LoadAsset<GameObject>("APLink");
+            TrackerPrefab = assetBundle.LoadAsset<GameObject>("APTracker");
+            SaberPrefab = assetBundle.LoadAsset<GameObject>("APSaber");
+            FlailHandlePrefab = assetBundle.LoadAsset<GameObject>("APFlailHandle");
+            LinkPrefab = assetBundle.LoadAsset<GameObject>("APLink");
             assetBundle.Unload(false);
         }
     }

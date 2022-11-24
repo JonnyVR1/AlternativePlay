@@ -74,36 +74,36 @@ namespace AlternativePlay.UI
         // Text Displays for the Main View
         private string leftMaulTrackerSerial;
         [UIValue("LeftMaulTrackerSerial")]
-        public string LeftMaulTrackerSerial { get => this.leftMaulTrackerSerial; set { this.leftMaulTrackerSerial = value; this.NotifyPropertyChanged(nameof(this.LeftMaulTrackerSerial)); } }
+        public string LeftMaulTrackerSerial { get => leftMaulTrackerSerial; set { leftMaulTrackerSerial = value; NotifyPropertyChanged(nameof(LeftMaulTrackerSerial)); } }
 
         private string leftMaulTrackerHoverHint;
         [UIValue("LeftMaulTrackerHoverHint")]
-        public string LeftMaulTrackerHoverHint { get => this.leftMaulTrackerHoverHint; set { this.leftMaulTrackerHoverHint = value; this.NotifyPropertyChanged(nameof(this.LeftMaulTrackerHoverHint)); } }
+        public string LeftMaulTrackerHoverHint { get => leftMaulTrackerHoverHint; set { leftMaulTrackerHoverHint = value; NotifyPropertyChanged(nameof(LeftMaulTrackerHoverHint)); } }
 
         private string rightMaulTrackerSerial;
         [UIValue("RightMaulTrackerSerial")]
-        public string RightMaulTrackerSerial { get => this.rightMaulTrackerSerial; set { this.rightMaulTrackerSerial = value; this.NotifyPropertyChanged(nameof(this.RightMaulTrackerSerial)); } }
+        public string RightMaulTrackerSerial { get => rightMaulTrackerSerial; set { rightMaulTrackerSerial = value; NotifyPropertyChanged(nameof(RightMaulTrackerSerial)); } }
 
         private string rightMaulTrackerHoverHint;
         [UIValue("RightMaulTrackerHoverHint")]
-        public string RightMaulTrackerHoverHint { get => this.rightMaulTrackerHoverHint; set { this.rightMaulTrackerHoverHint = value; this.NotifyPropertyChanged(nameof(this.RightMaulTrackerHoverHint)); } }
+        public string RightMaulTrackerHoverHint { get => rightMaulTrackerHoverHint; set { rightMaulTrackerHoverHint = value; NotifyPropertyChanged(nameof(RightMaulTrackerHoverHint)); } }
 
         // Text Display for the Current Tracker in the Tracker Select Modal
         private string currentTrackerText;
         [UIValue("CurrentTrackerText")]
-        public string CurrentTrackerText { get => this.currentTrackerText; set { this.currentTrackerText = value; this.NotifyPropertyChanged(nameof(this.CurrentTrackerText)); } }
+        public string CurrentTrackerText { get => currentTrackerText; set { currentTrackerText = value; NotifyPropertyChanged(nameof(CurrentTrackerText)); } }
 
         // Events
         [UIAction("OnShowSelectLeftTracker")]
         private void OnShowSelectLeftTracker()
         {
-            this.mainFlowCoordinator.ShowTrackerSelect(Configuration.instance.ConfigurationData.LeftMaulTracker);
+            mainFlowCoordinator.ShowTrackerSelect(Configuration.instance.ConfigurationData.LeftMaulTracker);
         }
 
         [UIAction("OnShowSelectRightTracker")]
         private void OnShowSelectRightTracker()
         {
-            this.mainFlowCoordinator.ShowTrackerSelect(Configuration.instance.ConfigurationData.RightMaulTracker);
+            mainFlowCoordinator.ShowTrackerSelect(Configuration.instance.ConfigurationData.RightMaulTracker);
         }
 
         [UIAction("OnClearLeftTracker")]
@@ -111,8 +111,8 @@ namespace AlternativePlay.UI
         {
             Configuration.instance.ConfigurationData.LeftMaulTracker = new TrackerConfigData();
             Configuration.instance.SaveConfiguration();
-            this.LeftMaulTrackerSerial = TrackerConfigData.NoTrackerText;
-            this.LeftMaulTrackerHoverHint = TrackerConfigData.NoTrackerHoverHint;
+            LeftMaulTrackerSerial = TrackerConfigData.NoTrackerText;
+            LeftMaulTrackerHoverHint = TrackerConfigData.NoTrackerHoverHint;
         }
 
         [UIAction("OnClearRightTracker")]
@@ -120,8 +120,8 @@ namespace AlternativePlay.UI
         {
             Configuration.instance.ConfigurationData.RightMaulTracker = new TrackerConfigData();
             Configuration.instance.SaveConfiguration();
-            this.RightMaulTrackerSerial = TrackerConfigData.NoTrackerText;
-            this.RightMaulTrackerHoverHint = TrackerConfigData.NoTrackerHoverHint;
+            RightMaulTrackerSerial = TrackerConfigData.NoTrackerText;
+            RightMaulTrackerHoverHint = TrackerConfigData.NoTrackerHoverHint;
         }
 
         /// <summary>
@@ -132,24 +132,24 @@ namespace AlternativePlay.UI
             var config = Configuration.instance.ConfigurationData;
             if (String.IsNullOrWhiteSpace(config.LeftMaulTracker.Serial))
             {
-                this.LeftMaulTrackerSerial = TrackerConfigData.NoTrackerText;
-                this.LeftMaulTrackerHoverHint = TrackerConfigData.NoTrackerHoverHint;
+                LeftMaulTrackerSerial = TrackerConfigData.NoTrackerText;
+                LeftMaulTrackerHoverHint = TrackerConfigData.NoTrackerHoverHint;
             }
             else
             {
-                this.LeftMaulTrackerSerial = config.LeftMaulTracker.Serial;
-                this.LeftMaulTrackerHoverHint = config.LeftMaulTracker.FullName;
+                LeftMaulTrackerSerial = config.LeftMaulTracker.Serial;
+                LeftMaulTrackerHoverHint = config.LeftMaulTracker.FullName;
             }
 
             if (String.IsNullOrWhiteSpace(config.RightMaulTracker.Serial))
             {
-                this.RightMaulTrackerSerial = TrackerConfigData.NoTrackerText;
-                this.RightMaulTrackerHoverHint = TrackerConfigData.NoTrackerHoverHint;
+                RightMaulTrackerSerial = TrackerConfigData.NoTrackerText;
+                RightMaulTrackerHoverHint = TrackerConfigData.NoTrackerHoverHint;
             }
             else
             {
-                this.RightMaulTrackerSerial = config.RightMaulTracker.Serial;
-                this.RightMaulTrackerHoverHint = config.RightMaulTracker.FullName;
+                RightMaulTrackerSerial = config.RightMaulTracker.Serial;
+                RightMaulTrackerHoverHint = config.RightMaulTracker.FullName;
             }
         }
 

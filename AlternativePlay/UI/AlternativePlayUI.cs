@@ -18,8 +18,8 @@ namespace AlternativePlay.UI
 
         public void ShowModFlowCoordinator()
         {
-            if (this.mainFlowCoordinator == null)
-                this.mainFlowCoordinator = BeatSaberUI.CreateFlowCoordinator<ModMainFlowCoordinator>();
+            if (mainFlowCoordinator == null)
+                mainFlowCoordinator = BeatSaberUI.CreateFlowCoordinator<ModMainFlowCoordinator>();
 
             if (mainFlowCoordinator.IsBusy) return;
 

@@ -24,10 +24,10 @@ namespace AlternativePlay
 
         public void LoadMenuBehaviors()
         {
-            if (FlailBehavior != null) GameObject.Destroy(FlailBehavior);
+            if (FlailBehavior != null) Destroy(FlailBehavior);
             FlailBehavior = null;
 
-            if (NunchakuBehavior != null) GameObject.Destroy(NunchakuBehavior);
+            if (NunchakuBehavior != null) Destroy(NunchakuBehavior);
             NunchakuBehavior = null;
         }
 

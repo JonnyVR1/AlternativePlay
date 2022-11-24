@@ -65,36 +65,36 @@ namespace AlternativePlay.UI
         // Text Displays for the Main View
         private string leftSpearTrackerSerial;
         [UIValue("LeftSpearTrackerSerial")]
-        public string LeftSpearTrackerSerial { get => this.leftSpearTrackerSerial; set { this.leftSpearTrackerSerial = value; this.NotifyPropertyChanged(nameof(this.LeftSpearTrackerSerial)); } }
+        public string LeftSpearTrackerSerial { get => leftSpearTrackerSerial; set { leftSpearTrackerSerial = value; NotifyPropertyChanged(nameof(LeftSpearTrackerSerial)); } }
 
         private string leftSpearTrackerHoverHint;
         [UIValue("LeftSpearTrackerHoverHint")]
-        public string LeftSpearTrackerHoverHint { get => this.leftSpearTrackerHoverHint; set { this.leftSpearTrackerHoverHint = value; this.NotifyPropertyChanged(nameof(this.LeftSpearTrackerHoverHint)); } }
+        public string LeftSpearTrackerHoverHint { get => leftSpearTrackerHoverHint; set { leftSpearTrackerHoverHint = value; NotifyPropertyChanged(nameof(LeftSpearTrackerHoverHint)); } }
 
         private string rightSpearTrackerSerial;
         [UIValue("RightSpearTrackerSerial")]
-        public string RightSpearTrackerSerial { get => this.rightSpearTrackerSerial; set { this.rightSpearTrackerSerial = value; this.NotifyPropertyChanged(nameof(this.RightSpearTrackerSerial)); } }
+        public string RightSpearTrackerSerial { get => rightSpearTrackerSerial; set { rightSpearTrackerSerial = value; NotifyPropertyChanged(nameof(RightSpearTrackerSerial)); } }
 
         private string rightSpearTrackerHoverHint;
         [UIValue("RightSpearTrackerHoverHint")]
-        public string RightSpearTrackerHoverHint { get => this.rightSpearTrackerHoverHint; set { this.rightSpearTrackerHoverHint = value; this.NotifyPropertyChanged(nameof(this.RightSpearTrackerHoverHint)); } }
+        public string RightSpearTrackerHoverHint { get => rightSpearTrackerHoverHint; set { rightSpearTrackerHoverHint = value; NotifyPropertyChanged(nameof(RightSpearTrackerHoverHint)); } }
 
         // Text Display for the Current Tracker in the Tracker Select Modal
         private string currentTrackerText;
         [UIValue("CurrentTrackerText")]
-        public string CurrentTrackerText { get => this.currentTrackerText; set { this.currentTrackerText = value; this.NotifyPropertyChanged(nameof(this.CurrentTrackerText)); } }
+        public string CurrentTrackerText { get => currentTrackerText; set { currentTrackerText = value; NotifyPropertyChanged(nameof(CurrentTrackerText)); } }
 
         // Events
         [UIAction("OnShowSelectLeftTracker")]
         private void OnShowSelectLeftTracker()
         {
-            this.mainFlowCoordinator.ShowTrackerSelect(Configuration.instance.ConfigurationData.LeftSpearTracker);
+            mainFlowCoordinator.ShowTrackerSelect(Configuration.instance.ConfigurationData.LeftSpearTracker);
         }
 
         [UIAction("OnShowSelectRightTracker")]
         private void OnShowSelectRightTracker()
         {
-            this.mainFlowCoordinator.ShowTrackerSelect(Configuration.instance.ConfigurationData.RightSpearTracker);
+            mainFlowCoordinator.ShowTrackerSelect(Configuration.instance.ConfigurationData.RightSpearTracker);
         }
 
         [UIAction("OnClearLeftTracker")]
@@ -102,8 +102,8 @@ namespace AlternativePlay.UI
         {
             Configuration.instance.ConfigurationData.LeftSpearTracker = new TrackerConfigData();
             Configuration.instance.SaveConfiguration();
-            this.LeftSpearTrackerSerial = TrackerConfigData.NoTrackerText;
-            this.LeftSpearTrackerHoverHint = TrackerConfigData.NoTrackerHoverHint;
+            LeftSpearTrackerSerial = TrackerConfigData.NoTrackerText;
+            LeftSpearTrackerHoverHint = TrackerConfigData.NoTrackerHoverHint;
         }
 
         [UIAction("OnClearRightTracker")]
@@ -111,8 +111,8 @@ namespace AlternativePlay.UI
         {
             Configuration.instance.ConfigurationData.RightSpearTracker = new TrackerConfigData();
             Configuration.instance.SaveConfiguration();
-            this.RightSpearTrackerSerial = TrackerConfigData.NoTrackerText;
-            this.RightSpearTrackerHoverHint = TrackerConfigData.NoTrackerHoverHint;
+            RightSpearTrackerSerial = TrackerConfigData.NoTrackerText;
+            RightSpearTrackerHoverHint = TrackerConfigData.NoTrackerHoverHint;
         }
 
         /// <summary>
@@ -123,24 +123,24 @@ namespace AlternativePlay.UI
             var config = Configuration.instance.ConfigurationData;
             if (String.IsNullOrWhiteSpace(config.LeftSpearTracker.Serial))
             {
-                this.LeftSpearTrackerSerial = TrackerConfigData.NoTrackerText;
-                this.LeftSpearTrackerHoverHint = TrackerConfigData.NoTrackerHoverHint;
+                LeftSpearTrackerSerial = TrackerConfigData.NoTrackerText;
+                LeftSpearTrackerHoverHint = TrackerConfigData.NoTrackerHoverHint;
             }
             else
             {
-                this.LeftSpearTrackerSerial = config.LeftSpearTracker.Serial;
-                this.LeftSpearTrackerHoverHint = config.LeftSpearTracker.FullName;
+                LeftSpearTrackerSerial = config.LeftSpearTracker.Serial;
+                LeftSpearTrackerHoverHint = config.LeftSpearTracker.FullName;
             }
 
             if (String.IsNullOrWhiteSpace(config.RightSpearTracker.Serial))
             {
-                this.RightSpearTrackerSerial = TrackerConfigData.NoTrackerText;
-                this.RightSpearTrackerHoverHint = TrackerConfigData.NoTrackerHoverHint;
+                RightSpearTrackerSerial = TrackerConfigData.NoTrackerText;
+                RightSpearTrackerHoverHint = TrackerConfigData.NoTrackerHoverHint;
             }
             else
             {
-                this.RightSpearTrackerSerial = config.RightSpearTracker.Serial;
-                this.RightSpearTrackerHoverHint = config.RightSpearTracker.FullName;
+                RightSpearTrackerSerial = config.RightSpearTracker.Serial;
+                RightSpearTrackerHoverHint = config.RightSpearTracker.FullName;
             }
         }
 

@@ -21,7 +21,7 @@ namespace AlternativePlay
             Utilities.CheckAndDisableForTrackerTransforms(Configuration.instance.ConfigurationData.LeftSaberTracker);
             Utilities.CheckAndDisableForTrackerTransforms(Configuration.instance.ConfigurationData.RightSaberTracker);
 
-            this.StartCoroutine(this.DisableOtherSaberMesh());
+            StartCoroutine(DisableOtherSaberMesh());
         }
 
         private void Update()
@@ -29,8 +29,8 @@ namespace AlternativePlay
             var config = Configuration.instance.ConfigurationData;
             if (config.PlayMode != PlayMode.BeatSaber) return;
 
-            this.UpdateLeftSaber();
-            this.UpdateRightSaber();
+            UpdateLeftSaber();
+            UpdateRightSaber();
         }
 
         private void UpdateLeftSaber()
