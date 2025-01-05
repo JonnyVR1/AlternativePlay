@@ -43,7 +43,7 @@ namespace AlternativePlay
             // Do nothing if we aren't playing Nunchaku
             if (this.configuration.Current.PlayMode != PlayMode.Nunchaku) { return; }
 
-            this.trackedDeviceManager.LoadTrackedDevices();
+            this.trackedDeviceManager.LoadTrackedDeviceProperties();
 
             Utilities.CheckAndDisableForTrackerTransforms(this.configuration.Current.LeftTracker);
             Utilities.CheckAndDisableForTrackerTransforms(this.configuration.Current.RightTracker);

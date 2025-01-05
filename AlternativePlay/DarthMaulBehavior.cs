@@ -24,7 +24,7 @@ namespace AlternativePlay
             // Do nothing if we aren't playing Darth Maul
             if (this.configuration.Current.PlayMode != PlayMode.DarthMaul) { return; }
 
-            this.trackedDeviceManager.LoadTrackedDevices();
+            this.trackedDeviceManager.LoadTrackedDeviceProperties();
 
             Utilities.CheckAndDisableForTrackerTransforms(this.configuration.Current.LeftTracker);
             Utilities.CheckAndDisableForTrackerTransforms(this.configuration.Current.RightTracker);

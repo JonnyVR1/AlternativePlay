@@ -56,7 +56,7 @@ namespace AlternativePlay
                 this.rightHandleMesh = this.CreateFlailHandle("RightHandle", this.configuration.Current.RightHandleLength / 100.0f);
             }
 
-            this.trackedDeviceManager.LoadTrackedDevices();
+            this.trackedDeviceManager.LoadTrackedDeviceProperties();
 
             if (this.configuration.Current.LeftFlailMode != BeatFlailMode.None)
             {

@@ -2,7 +2,6 @@
 using AlternativePlay.Models;
 using System;
 using UnityEngine;
-using UnityEngine.XR;
 using Zenject;
 
 namespace AlternativePlay
@@ -21,8 +20,6 @@ namespace AlternativePlay
 
         private SaberManager saberManager;
         private GameObject playerOrigin;
-        private InputDevice leftController;
-        private InputDevice rightController;
 
         private Pose savedLeftController;
         private Pose savedLeftSaber;
@@ -33,10 +30,9 @@ namespace AlternativePlay
         private void Start()
         {
             this.calibrated = false;
+            this.trackedDeviceManager.LoadTrackedDeviceProperties();
             this.saberManager = MultiplayerLocalActivePlayerGameplayManagerPatch.multiplayerSaberManager ?? FindObjectOfType<SaberManager>();
             this.playerOrigin = GameObject.Find("LocalPlayerGameCore/Origin");
-            this.leftController = InputDevices.GetDeviceAtXRNode(XRNode.LeftHand);
-            this.rightController = InputDevices.GetDeviceAtXRNode(XRNode.RightHand);
         }
 
         private void Update()
@@ -61,10 +57,10 @@ namespace AlternativePlay
             }
             else
             {
-                if (!this.calibrated || !this.leftController.isValid) return new Pose();
+                if (!this.calibrated) return new Pose();
 
                 // Return adjusted position from the saber
-                Pose controllerPose = TrackedDeviceManager.GetDevicePose(this.leftController) ?? new Pose();
+                Pose controllerPose = this.trackedDeviceManager.GetPoseFromLeftController() ?? new Pose();
                 Pose adjustedControllerPose = this.AdjustForPlayerOrigin(controllerPose);
                 return TrackedDeviceManager.GetTrackedObjectPose(this.savedLeftSaber, this.savedLeftController, adjustedControllerPose);
             }
@@ -87,10 +83,10 @@ namespace AlternativePlay
             }
             else
             {
-                if (!this.calibrated || !this.rightController.isValid) return new Pose();
+                if (!this.calibrated) return new Pose();
 
                 // Return adjusted position from the saber
-                Pose controllerPose = TrackedDeviceManager.GetDevicePose(this.rightController) ?? new Pose();
+                Pose controllerPose = this.trackedDeviceManager.GetPoseFromRightController() ?? new Pose();
                 Pose adjustedControllerPose = this.AdjustForPlayerOrigin(controllerPose);
                 return TrackedDeviceManager.GetTrackedObjectPose(this.savedRightSaber, this.savedRightController, adjustedControllerPose);
             }
@@ -172,10 +168,10 @@ namespace AlternativePlay
             this.calibrated = true;
 
             // Save current controller position
-            this.savedLeftController = TrackedDeviceManager.GetDevicePose(this.leftController) ?? new Pose();
+            this.savedLeftController = this.trackedDeviceManager.GetPoseFromLeftController() ?? new Pose();
             this.savedLeftController = this.AdjustForPlayerOrigin(this.savedLeftController);
 
-            this.savedRightController = TrackedDeviceManager.GetDevicePose(this.rightController) ?? new Pose();
+            this.savedRightController = this.trackedDeviceManager.GetPoseFromRightController() ?? new Pose();
             this.savedRightController = this.AdjustForPlayerOrigin(this.savedRightController);
 
             // Save current game saber positions

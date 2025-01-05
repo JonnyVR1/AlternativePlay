@@ -29,7 +29,7 @@ namespace AlternativePlay
             if (this.configuration.Current.PlayMode != PlayMode.BeatSpear) { return; }
 
             this.useLeftHandForward = !this.configuration.Current.UseLeft;
-            this.trackedDeviceManager.LoadTrackedDevices();
+            this.trackedDeviceManager.LoadTrackedDeviceProperties();
 
             if (this.configuration.Current.ControllerCount == ControllerCountEnum.Two)
             {
